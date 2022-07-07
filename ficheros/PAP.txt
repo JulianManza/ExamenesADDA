@@ -1,0 +1,17 @@
+// PROFESORES
+PROF_0; creditos=12; preferencias=3,2,2,0,0
+PROF_1; creditos=12; preferencias=3,3,3,3,3
+PROF_2; creditos=12; preferencias=0,3,1,2,3
+PROF_3; creditos=12; preferencias=2,3,2,2,1
+PROF_4; creditos=6; preferencias=0,3,2,1,0
+PROF_5; creditos=6; preferencias=1,2,1,3,2
+PROF_6; creditos=12; preferencias=1,1,3,2,2
+PROF_7; creditos=12; preferencias=1,1,2,3,2
+
+
+// ASIGNATURAS
+ADDA; creditos=24; franja_horaria=0;
+FP; creditos=24; franja_horaria=2;
+PL; creditos=12; franja_horaria=1;
+SO; creditos=18; franja_horaria=0;
+SIE; creditos=6; franja_horaria=0;
