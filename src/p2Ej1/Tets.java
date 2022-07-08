@@ -5,7 +5,6 @@ import java.util.Locale;
 
 import us.lsi.ag.agchromosomes.AlgoritmoAG;
 import us.lsi.ag.agstopping.StoppingConditionFactory;
-import us.lsi.ag.agstopping.StoppingConditionFactory.StoppingConditionType;
 
 public class Tets {
 	
@@ -17,15 +16,11 @@ public class Tets {
 	}	
 
 	public static void main(String[] args) {
-		AlgoritmoAG.ELITISM_RATE  = 0.30;
+		AlgoritmoAG.POPULATION_SIZE = 1000;
+		StoppingConditionFactory.NUM_GENERATIONS = 500;
 		AlgoritmoAG.CROSSOVER_RATE = 0.8;
-		AlgoritmoAG.MUTATION_RATE = 0.7;
-		AlgoritmoAG.POPULATION_SIZE = 200;
-		
-		StoppingConditionFactory.NUM_GENERATIONS = 15000;
-		StoppingConditionFactory.SOLUTIONS_NUMBER_MIN = 1;
-		StoppingConditionFactory.FITNESS_MIN = -4;
-		StoppingConditionFactory.stoppingConditionType = StoppingConditionType.GenerationCount;
+		AlgoritmoAG.ELITISM_RATE = 0.2;
+		AlgoritmoAG.MUTATION_RATE = 0.6;
 		Locale.setDefault(new Locale("en", "US"));
 		test("PAP.txt");
 	}
