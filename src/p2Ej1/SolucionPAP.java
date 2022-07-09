@@ -15,7 +15,7 @@ import us.lsi.common.Map2;
 public class SolucionPAP {
 
 	private static Map<Asignatura, List<Profesor>> solve;
-	private List<Integer> ctsRestantes;
+	private List<Integer> ectsAcubrir, ectsRestantes;
 	public Double objetivo, errorCTS, errorFranja, errorPreferencia;
 
 	public static SolucionPAP create(List<Integer> ls) {
@@ -28,13 +28,24 @@ public class SolucionPAP {
 		this.errorCTS = 0.;
 		this.errorFranja = 0.;
 		this.errorPreferencia = 0.;
-		Double error = (int)ls.stream().filter(f->f==1).count()<DatosPAP.getNumProfesores()?10.0:0.0;
-		this.ctsRestantes = IntStream.range(0, DatosPAP.getNumAsignaturas()).boxed()
+		
+		this.ectsAcubrir = IntStream.range(0, DatosPAP.getNumAsignaturas()).boxed()
 				.map(p -> DatosPAP.getECTSAsignatura(p)).collect(Collectors.toList());
+		
 		IntStream.range(0, ls.size()).boxed().forEach(i -> mapeo(ls.get(i), i));
-		this.errorCTS = error + AuxiliaryAg.distanceToEqZero((double)ctsRestantes.stream().mapToInt(e -> e).filter(f->f!=0).count()) + AuxiliaryAg.distanceToEqZero((double)ctsRestantes.stream().mapToInt(e -> e).filter(f->f!=0).sum());
+		
+		System.out.println(ectsAcubrir);
+		//this.ectsAcubrir.set(j, ectsAcubrir.get(j) - DatosPAP.getECTSProfesor(i)/mulProf.get(i ); => en stream para cada prof seleccionado
+		
+		
+		List<Profesor> profSelec = solve.entrySet().stream().flatMap(f->f.getValue().stream().map(m-> m)).collect(Collectors.toList());
+		List<Integer> mulProf = DatosPAP.profesores.stream().map(m->Collections.frequency(profSelec, m)).toList();
+		//
+		this.errorCTS = (double) ectsAcubrir.stream().mapToInt(p-> Math.abs(p)).sum() + mulProf.stream().filter(f->f==0).count(); ;
+		
 		Map<Object, List<Object>> mp = solve.entrySet().stream().collect(Collectors.groupingBy(a -> a.getKey().franja(),
 				Collectors.flatMapping(e -> e.getValue().stream(), Collectors.toList())));
+		
 		errorFranja =(double) mp.values().stream().mapToInt(p-> (int) p.stream().filter(f->Collections.frequency(p, f)>1).count()).sum();
 	}
 
@@ -51,8 +62,9 @@ public class SolucionPAP {
 				profesores.add(prof);
 				solve.put(asig, profesores);
 			}
-			this.ctsRestantes.set(j, ctsRestantes.get(j) - DatosPAP.getECTSProfesor(i));
-			this.errorPreferencia += DatosPAP.getPreferencia(i, j) == 0 ? 1.0 : 0.0;
+			
+			this.ectsAcubrir.set(j, ectsAcubrir.get(j) - DatosPAP.getECTSProfesor(i));
+			this.errorPreferencia += DatosPAP.getPreferencia(i, j) < 3 ? DatosPAP.getPreferencia(i, j) == 0?6.0:-DatosPAP.getPreferencia(i, j)+3.0 : 0.0;
 			this.objetivo += DatosPAP.getPreferencia(i, j)*DatosPAP.getECTSProfesor(i);
 		}
 		return index++;

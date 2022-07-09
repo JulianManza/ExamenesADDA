@@ -7,8 +7,8 @@ import us.lsi.common.List2;
 
 public class DatosPAP {
 
-	private static List<Asignatura> asignaturas;
-	private static List<Profesor> profesores;
+	public static List<Asignatura> asignaturas;
+	public static List<Profesor> profesores;
 
 	public record Asignatura(String nombre, Integer creditos, Integer franja) {
 		private static Asignatura create(String s) {
