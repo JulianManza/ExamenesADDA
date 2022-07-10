@@ -4,6 +4,7 @@ import java.util.List;
 
 import us.lsi.common.Files2;
 import us.lsi.common.List2;
+import us.lsi.common.String2;
 
 public class DatosPAP {
 
@@ -20,7 +21,7 @@ public class DatosPAP {
 		}
 
 		public String toString() {
-			return String.format("%s: %s; %s;", nombre(), creditos(), franja());
+			return String.format("%s: (%sECTS), Franja: %s", nombre(), creditos(), franja());
 		}
 	}
 
@@ -35,7 +36,7 @@ public class DatosPAP {
 		}
 
 		public String toString() {
-			return String.format("%s (%sECTS)", nombre(), creditos(), preferencias());
+			return String.format("%s: (%sECTS), Preferencias: %s", nombre(), creditos(), preferencias());
 		}
 	}
 
@@ -93,10 +94,8 @@ public class DatosPAP {
 	}
 	
 	public static void toConsole() {
-		System.out.println("Profesores: \n");
-		profesores.forEach(System.out::println);
-		System.out.println("Asignaturas: \n");
-		asignaturas.forEach(System.out::println);
+		String2.toConsole(profesores, "Profesores");
+		String2.toConsole(asignaturas, "Asignaturas");
 	}
 
 }

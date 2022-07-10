@@ -16,8 +16,8 @@ public class Tets {
 	}	
 
 	public static void main(String[] args) {
-		AlgoritmoAG.POPULATION_SIZE = 1500;
-		StoppingConditionFactory.NUM_GENERATIONS = 3500;
+		AlgoritmoAG.POPULATION_SIZE = 500;
+		StoppingConditionFactory.NUM_GENERATIONS = 1000;
 		AlgoritmoAG.CROSSOVER_RATE = 0.8;
 		AlgoritmoAG.ELITISM_RATE = 0.2;
 		AlgoritmoAG.MUTATION_RATE = 0.6;
