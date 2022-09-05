@@ -1,4 +1,4 @@
-package p2Ej1;
+package data;
 
 import java.util.List;
 
@@ -19,6 +19,8 @@ public class DatosPAP {
 			Integer franja = Integer.valueOf(tokens[2].split("=")[1].replace(";", "").trim());
 			return new Asignatura(nombre, creditos, franja);
 		}
+		
+		
 
 		public String toString() {
 			return String.format("%s: (%sECTS), Franja: %s", nombre(), creditos(), franja());

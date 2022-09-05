@@ -1,12 +1,12 @@
-package p2Ej1;
+package junP2Ej1AG;
 
 import java.util.List;
 
+import data.DatosPAP;
+import data.SolucionPAP;
 import us.lsi.ag.BinaryData;
 
 public class PAP_AG implements BinaryData<SolucionPAP> {
-
-	// private Double obj = DatosPAP.getNumProfesores()*3.0;
 
 	public PAP_AG(String file) {
 		DatosPAP.iniDatos(file);
@@ -26,7 +26,8 @@ public class PAP_AG implements BinaryData<SolucionPAP> {
 	public Double fitnessFunction(List<Integer> cr) {
 		SolucionPAP s = SolucionPAP.create(cr);
 		Double penalizacion = 3. * cr.size();
-		return s.objetivo -  penalizacion * (s.errorCTS + s.errorPreferencia + s.errorFranja);
+
+		return s.objetivo - penalizacion * (s.errorCTS + s.errorPreferencia + s.errorFranja);
 	}
 
 	@Override

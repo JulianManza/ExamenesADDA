@@ -1,13 +1,14 @@
-package p2Ej1;
+package data;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import p2Ej1.DatosPAP.Asignatura;
-import p2Ej1.DatosPAP.Profesor;
+import data.DatosPAP.Asignatura;
+import data.DatosPAP.Profesor;
 import us.lsi.common.List2;
 import us.lsi.common.Map2;
 import us.lsi.common.String2;
@@ -35,6 +36,7 @@ public class SolucionPAP {
 		multiplicidadProfesoresSeleccionados(profSelec);
 		errorECTS();
 		errorFranja();
+		
 	}
 
 	private void multiplicidadProfesoresSeleccionados(List<Profesor> profSelec) {
@@ -100,7 +102,7 @@ public class SolucionPAP {
 
 	@Override
 	public String toString() {
-		List<String> solucion = solve.entrySet().stream()
+		List<String> solucion = solve.entrySet().stream().sorted(Comparator.comparing(k-> k.toString()))
 				.map(a ->a.getKey().nombre() + ": " + a.getValue().stream().map(p -> p.nombre() + "("
 						+ (p.creditos() / mulProf.get(Integer.valueOf(p.nombre().split("_")[1])) + "ECTS)")).toList()).toList();
 		String2.toConsole(solucion, "Solucion");
