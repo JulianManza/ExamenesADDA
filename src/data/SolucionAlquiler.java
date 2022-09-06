@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import junP2Ej2AG.Alquiler_AG;
+import jun2122.Alquiler_AG;
 import us.lsi.common.List2;
 import us.lsi.common.Map2;
 import us.lsi.common.String2;
