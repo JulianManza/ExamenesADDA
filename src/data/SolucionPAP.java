@@ -18,7 +18,7 @@ public class SolucionPAP {
 	private static Map<Asignatura, List<Profesor>> solve;
 	private List<Integer> ectsAcubrir, mulProf;
 	public Double objetivo, errorCTS, errorFranja, errorPreferencia;
-
+  public static List<Integer> ls = List2.empty();
 	public static SolucionPAP create(List<Integer> ls) {
 		return new SolucionPAP(ls);
 	}
@@ -31,12 +31,11 @@ public class SolucionPAP {
 		this.errorPreferencia = 0.;
 
 		IntStream.range(0, ls.size()).boxed().forEach(i -> mapeo(ls.get(i), i));
-
 		List<Profesor> profSelec = profesoresSeleccionados();
 		multiplicidadProfesoresSeleccionados(profSelec);
 		errorECTS();
 		errorFranja();
-		
+
 	}
 
 	private void multiplicidadProfesoresSeleccionados(List<Profesor> profSelec) {
@@ -50,8 +49,8 @@ public class SolucionPAP {
 	}
 
 	private void errorFranja() {
-		Map<Object, List<Object>> mapFranjas = solve.entrySet().stream().collect(Collectors.groupingBy(a -> a.getKey().franja(),
-				Collectors.flatMapping(e -> e.getValue().stream(), Collectors.toList())));
+		Map<Object, List<Object>> mapFranjas = solve.entrySet().stream().collect(Collectors.groupingBy(
+				a -> a.getKey().franja(), Collectors.flatMapping(e -> e.getValue().stream(), Collectors.toList())));
 
 		errorFranja = (double) mapFranjas.values().stream()
 				.mapToInt(p -> (int) p.stream().filter(f -> Collections.frequency(p, f) > 1).count()).sum();
@@ -62,7 +61,7 @@ public class SolucionPAP {
 				.map(a -> a.getKey().creditos() - a.getValue().stream()
 						.mapToInt(p -> p.creditos() / mulProf.get(Integer.valueOf(p.nombre().split("_")[1]))).sum())
 				.toList();
-		
+
 		this.errorCTS = (double) ectsAcubrir.stream().mapToInt(p -> Math.abs(p)).sum()
 				+ mulProf.stream().filter(f -> f == 0).count();
 	}
@@ -102,9 +101,12 @@ public class SolucionPAP {
 
 	@Override
 	public String toString() {
-		List<String> solucion = solve.entrySet().stream().sorted(Comparator.comparing(k-> k.toString()))
-				.map(a ->a.getKey().nombre() + ": " + a.getValue().stream().map(p -> p.nombre() + "("
-						+ (p.creditos() / mulProf.get(Integer.valueOf(p.nombre().split("_")[1])) + "ECTS)")).toList()).toList();
+		List<String> solucion = solve.entrySet().stream().sorted(Comparator.comparing(k -> k.toString()))
+				.map(a -> a.getKey().nombre() + ": "
+						+ a.getValue().stream().map(p -> p.nombre() + "("
+								+ (p.creditos() / mulProf.get(Integer.valueOf(p.nombre().split("_")[1])) + "ECTS)"))
+								.toList())
+				.toList();
 		String2.toConsole(solucion, "Solucion");
 		return "";
 	}
