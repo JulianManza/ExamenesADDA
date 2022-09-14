@@ -1,4 +1,4 @@
-package Sep2021;
+package sep2021;
 
 public class Ejercicio1 {
 	/*

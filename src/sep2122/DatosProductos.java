@@ -13,7 +13,8 @@ public class DatosProductos {
 			String[] tokens = file.split(";");
 			Integer id = Integer.valueOf(tokens[0]);
 			Integer ganancia = Integer.valueOf(tokens[1]);
-			List<Integer> categorias = List2.parse(tokens[2].replace("{", "").replace("}", "").split(","), i -> Integer.valueOf(i));
+			List<Integer> categorias = List2.parse(tokens[2].replace("{", "").replace("}", "").split(","),
+					i -> Integer.valueOf(i));
 			return new Producto(id, ganancia, categorias);
 		}
 	}
@@ -31,18 +32,17 @@ public class DatosProductos {
 	public static List<Integer> getCategorias(Integer i) {
 		return productos.get(i).categorias();
 	}
-	
-	public static List<Producto> getProductos(){
+
+	public static List<Producto> getProductos() {
 		return productos;
 	}
-	
+
 	public static void toConsole() {
 		String2.toConsole(productos, "Productos:");
 	}
-	
+
 	public static void iniDatos(String fichero) {
 		productos = Files2.streamFromFile(fichero).map(l -> Producto.create(l.toString())).toList();
 	}
-	
 
 }
